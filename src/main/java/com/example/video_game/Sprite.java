@@ -1,8 +1,9 @@
 package com.example.video_game;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public abstract class Sprite {
+public class Sprite {
 
     private Image image;
     private int posX,posY,imageWidth,imageHeight,speed;
@@ -12,12 +13,12 @@ public abstract class Sprite {
      * This is the constructor for the Sprite class
      * @param image -javafx image
      * @param posX - the left most position of the Sprite
-     * @param posY- the top position of the Sprite
+     * @param posY - the top position of the Sprite
      * @param imageWidth - the width of the image when drawn
-     * @param imageHeight- the height of the image when drawn
-     * @param speed- how many pixels the Sprite can move.
+     * @param imageHeight - the height of the image when drawn
+     * @param speed - how many pixels the Sprite can move
      */
-    public Sprite(Image image, int posX, int posY, int imageWidth, int imageHeight, int speed) {
+    public Sprite(Image image, int posX, int posY, int imageWidth, int imageHeight,int speed) {
         setImage(image);
         setPosX(posX);
         setPosY(posY);
@@ -92,5 +93,11 @@ public abstract class Sprite {
 
     public void setAlive(boolean alive) {
         this.alive = alive;
+    }
+
+
+    public void draw(GraphicsContext gc)
+    {
+        gc.drawImage(image,posX,posY,imageWidth,imageHeight);
     }
 }

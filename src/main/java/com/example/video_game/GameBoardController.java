@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
 
@@ -37,7 +38,17 @@ public class GameBoardController {
         GraphicsContext gc = canvas.getGraphicsContext2D(); // this is like asking the canvas to draw on it.
 
 
+        //we need to load some images to draw the background and the ship.....why we are doing this, so when we put the canvas, its going to overlap everything else and we gonna lose our background if we dont do this....
+        //getClass().getResource("images/space.png").toExternalForm() -> this basically going to translate into a path to the file,so the image class can load it.
+        Image background= new Image(getClass().getResource("images/space.png").toExternalForm());
+        Image shipImage = new Image(getClass().getResource("images/ship.png").toExternalForm());
 
+
+        //create the Ship sprite
+        Sprite ship = new Sprite(shipImage,100,100,100,100,8);
+
+        gc.drawImage(background,0,0,GameConfig.getGame_width(),GameConfig.getGame_height());
+        ship.draw(gc);
 
         // attach the canvas to the anchorpane like cloth canvas over the anchorpane so as to start drawing.
         anchorPane.getChildren().add(canvas);
