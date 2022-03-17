@@ -100,4 +100,12 @@ public class Sprite {
     {
         gc.drawImage(image,posX,posY,imageWidth,imageHeight);
     }
+    public void moveRight(){
+        posX = posX + speed;
+
+        if(posX>=GameConfig.getGame_width()-imageWidth)
+            posX =GameConfig.getGame_width()-imageWidth;
+
+    }
+
 }

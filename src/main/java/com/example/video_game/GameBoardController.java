@@ -1,5 +1,7 @@
 package com.example.video_game;
 
+
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -45,10 +47,21 @@ public class GameBoardController {
 
 
         //create the Ship sprite
-        Sprite ship = new Sprite(shipImage,100,100,100,100,8);
+        Sprite ship = new Sprite(shipImage,100,100,100,100,1);
 
-        gc.drawImage(background,0,0,GameConfig.getGame_width(),GameConfig.getGame_height());
-        ship.draw(gc);
+        AnimationTimer timer =new AnimationTimer() {
+            // when the timer trigger, it will timer method each time...
+            @Override
+            public void handle(long l){
+                gc.drawImage(background,0,0,GameConfig.getGame_width(),GameConfig.getGame_height());
+                ship.draw(gc);
+                ship.moveRight();
+
+            }
+        };
+
+        timer.start();
+
 
         // attach the canvas to the anchorpane like cloth canvas over the anchorpane so as to start drawing.
         anchorPane.getChildren().add(canvas);
