@@ -47,10 +47,10 @@ public class GameBoardController {
 
 
         //create the Ship sprite
-        Sprite ship = new Sprite(shipImage,100,100,100,100,1);
+        Sprite ship = new Sprite(shipImage,100,100,100,100,7);
 
         AnimationTimer timer =new AnimationTimer() {
-            // when the timer trigger, it will timer method each time...
+            // when the timer trigger, it will call the handle method each time...
             @Override
             public void handle(long l){
                 gc.drawImage(background,0,0,GameConfig.getGame_width(),GameConfig.getGame_height());

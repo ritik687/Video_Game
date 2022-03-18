@@ -43,7 +43,7 @@ public class Sprite {
 
     public void setPosX(int posX) {
         //furthestRight -> our image can be drawn and still be visible on the canvas so as long as we're inside that range we're good to go.
-        int furthestRight = GameConfig.getGame_width() -imageWidth;
+        int furthestRight = GameConfig.getGame_width()-imageWidth;
         if(posX>=0 && posX<=furthestRight)
             this.posX = posX;
         else
