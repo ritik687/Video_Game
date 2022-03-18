@@ -41,6 +41,7 @@ public class GameBoardController {
             public void handle(KeyEvent keyPressed) {
                 System.out.println(keyPressed.getCode()+ "-> active keys"+activeKeys);
                     activeKeys.add(keyPressed.getCode());
+                    // getCode() is something that we can reference for the key
                     // What will happen now, whenever we pressed the key, we add it into our set of active keys, so if I push the left button, I am going to store the left button..
             }
         });
@@ -85,8 +86,11 @@ public class GameBoardController {
             @Override
             public void handle(long l){
                 gc.drawImage(background,0,0,GameConfig.getGame_width(),GameConfig.getGame_height());
+
+
+                updateShipLocation(ship);
                 ship.draw(gc);
-                ship.moveRight();
+
 
             }
         };
@@ -99,5 +103,26 @@ public class GameBoardController {
 
 
     }
+
+    /**
+     * This method will update the location of the ship based on the keys pressed. This method is outside the block of the startGame method
+     */
+    private void updateShipLocation(Ship ship)
+    {
+        //KeyCode.DOWN -> this is like a standard value, so i can check to see if the activeKeys contains that and then called the appropriate method..We can say that the KeyCode.DOWN is the numeric value of Down...
+
+        if(activeKeys.contains(KeyCode.DOWN))
+            ship.moveDown();
+
+        if(activeKeys.contains(KeyCode.UP) || activeKeys.contains("W"))
+            ship.moveUp();
+        if(activeKeys.contains(KeyCode.RIGHT))
+            ship.moveRight();
+        if(activeKeys.contains(KeyCode.LEFT))
+            ship.moveLeft();
+
+
+    }
+
 
 }
