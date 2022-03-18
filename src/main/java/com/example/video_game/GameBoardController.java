@@ -43,11 +43,10 @@ public class GameBoardController {
         //we need to load some images to draw the background and the ship.....why we are doing this, so when we put the canvas, its going to overlap everything else and we gonna lose our background if we dont do this....
         //getClass().getResource("images/space.png").toExternalForm() -> this basically going to translate into a path to the file,so the image class can load it.
         Image background= new Image(getClass().getResource("images/space.png").toExternalForm());
-        Image shipImage = new Image(getClass().getResource("images/ship.png").toExternalForm());
 
 
         //create the Ship sprite
-        Sprite ship = new Sprite(shipImage,100,100,100,100,7);
+        Ship ship = new Ship(100,100 );
 
         AnimationTimer timer =new AnimationTimer() {
             // when the timer trigger, it will call the handle method each time...
