@@ -1,6 +1,7 @@
 package com.example.video_game;
 
 
+import com.example.video_game.sprites.Alien;
 import com.example.video_game.sprites.Missile;
 import com.example.video_game.sprites.Ship;
 import javafx.animation.AnimationTimer;
@@ -16,6 +17,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 
@@ -82,7 +85,22 @@ public class GameBoardController {
 
         //create the Ship sprite
         Ship ship = new Ship(100,100 );
-        Missile missile =new Missile(100,100);
+        Missile missile =new Missile(100,100);// this line will be useful, if we remove the comment from the missile.draw(gc);
+
+        //create a few aliens
+        /*Alien alien1 = new Alien(600,400);
+        Alien alien2 = new Alien(700,400);
+        Alien alien3 = new Alien(400,400); we cant add manually 30 or 40 aliens it will consume time */
+        SecureRandom rng = new SecureRandom(); // secure randome has lot of uses than the simple random class
+        ArrayList<Alien> aliens = new ArrayList<>();
+        for (int i =1;i<=10;i++) {
+            // here we are setting the orgin and bounds for the aliens,,, how these aliens should move where ?
+            aliens.add(new Alien(rng.nextInt(500, GameConfig.getGame_width()), rng.nextInt(0, GameConfig.getGame_height()-GameConfig.getAlien_height())));
+        }
+
+
+
+
 
         AnimationTimer timer =new AnimationTimer() {
             // when the timer trigger, it will call the handle method each time...
@@ -91,8 +109,21 @@ public class GameBoardController {
                 gc.drawImage(background,0,0,GameConfig.getGame_width(),GameConfig.getGame_height());
 
                 //missile.draw(gc);
+
+                //update the ship positon and draw it
                 updateShipLocation(ship);
                 ship.draw(gc);
+
+                //draw the aliens
+                  /*alien1.draw(gc);
+                    alien2.draw(gc);
+                    alien3.draw(gc);*/
+                for(Alien alien : aliens)
+                {
+                    alien.draw(gc);
+                }
+
+
 
 
             }
@@ -124,7 +155,6 @@ public class GameBoardController {
             ship.moveLeft();
         if(activeKeys.contains(KeyCode.SPACE))
             ship.shootMissile();
-
 
     }
 
