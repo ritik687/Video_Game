@@ -5,7 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 // abstract means you cannot implement it on its own you have to have a sub-class implemented
-public abstract  class Sprite {
+public abstract class Sprite {
 
     //protected status means that they can only be accessed by this class or the sub-class(Ship)
     protected Image image;

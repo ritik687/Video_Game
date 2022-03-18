@@ -9,6 +9,12 @@ import javafx.scene.image.Image;
 import java.util.ArrayList;
 
 public class Ship extends Sprite {
+    //final is no longer something that can change, often refer to those as constants. or its that something that cannot be edited or change.
+
+    // these basically written in upper case and it recognise as that dont change.
+    private final int REFRESH_RATE =5;// refresh rate is just how many cycles go by before we allow another missile to be sent
+    private int currentMissilePause; // this variable will keep track of how many clock cycles have happened and when it set to zero, we will set it back to 20..So basically it allows to put spacing between the shooting missiles.
+
     // container to hold the missiles
      private ArrayList<Missile> activeMissiles;
     /**
@@ -17,16 +23,18 @@ public class Ship extends Sprite {
      * @param posY        - the top position of the Sprite
      */
     public Ship(  int posX, int posY ) {
-        super( posX, posY, GameConfig.getShip_width(),GameConfig.getShip_height(),GameConfig.getShip_speed());
+        super(posX, posY, GameConfig.getShip_width(), GameConfig.getShip_height(), GameConfig.getShip_speed());
 
         // the problem is that the super class needs the image to be set
         image = new Image(Main.class.getResource("images/ship.png").toExternalForm());
         // we have got two errors to deal with, the first is we need to change the superclass so that its not expecting an image to be passed in the constructor. And then we need to alter that image attribute so that we can access it from our subclass. Lets handle two items now.
         activeMissiles = new ArrayList<>();
+        currentMissilePause = REFRESH_RATE;
     }
 
+
     /**
-     * This method will decrese the y-coordinate based on the ship speed until it gets to 0
+     * This method will decrease the y-coordinate based on the ship speed until it gets to 0
      */
     public void moveUp()
      {
@@ -75,10 +83,16 @@ public class Ship extends Sprite {
      */
         public void shootMissile()
         {
-            // our ship will keep track of these missiles
-            // when we draw the ship, then we draw all the missiles...
-            Missile newMissile = new Missile(posX+imageWidth, posY+imageHeight/2-GameConfig.getMissile_height()/2);
-            activeMissiles.add(newMissile);
+
+            if (currentMissilePause <0){
+
+                // our ship will keep track of these missiles
+                // when we draw the ship, then we draw all the missiles...
+                Missile newMissile = new Missile(posX+imageWidth, posY+imageHeight/2-GameConfig.getMissile_height()/2);
+                activeMissiles.add(newMissile);
+                currentMissilePause = REFRESH_RATE;
+            }
+
         }
 
     /**
@@ -86,6 +100,8 @@ public class Ship extends Sprite {
      * @param gc
      */
     public void draw(GraphicsContext gc) {
+
+        currentMissilePause--;
         super.draw(gc);
         for (Missile missile : activeMissiles)
         {
