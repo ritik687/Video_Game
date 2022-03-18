@@ -3,14 +3,18 @@ package com.example.video_game;
 
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.util.HashSet;
 
 
 public class GameBoardController {
@@ -21,10 +25,38 @@ public class GameBoardController {
     @FXML
     private Button startButton;
 
+    private HashSet<KeyCode> activeKeys;
+
     @FXML
     private void startGame(ActionEvent event)
     {
         startButton.setVisible(false);
+        activeKeys = new HashSet<>();
+
+        // asking the anchorPane to get the scene and the scene has a method called setOnKeyReleased();
+        // This is an example of an anonymous inner class [new EventHandler<KeyEvent>()]
+        anchorPane.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+            // abstract method called handle, need to be implemented
+            @Override
+            public void handle(KeyEvent keyPressed) {
+                System.out.println(keyPressed.getCode()+ "-> active keys"+activeKeys);
+                    activeKeys.add(keyPressed.getCode());
+                    // What will happen now, whenever we pressed the key, we add it into our set of active keys, so if I push the left button, I am going to store the left button..
+            }
+        });
+
+
+        anchorPane.getScene().setOnKeyReleased(new EventHandler<KeyEvent>() {
+            // abstract method called handle, need to be implemented
+            @Override
+            public void handle(KeyEvent keyRealeased) {
+                System.out.println(keyRealeased.getCode()+ "-> active keys"+activeKeys);
+                activeKeys.remove(keyRealeased.getCode());
+                // What will happen now, whenever we pressed the key, we add it into our set of active keys, so if I push the left button, I am going to store the left button..
+            }
+        });
+
+
 
         // we are going to use the tool called canvas or canvas class.... we draw on the canvas...Canvas needs a size, imagine if you are drawing on the canvas the size may be small and large..
         // there are two ways to set its dimension:- one ay to ask the anchor pane for its dimensions, thats the way to make it the exact same size && another way to do it is, we can set up a file for game constants
