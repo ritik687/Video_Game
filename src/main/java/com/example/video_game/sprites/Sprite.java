@@ -1,5 +1,6 @@
-package com.example.video_game;
+package com.example.video_game.sprites;
 
+import com.example.video_game.GameConfig;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -101,12 +102,6 @@ public abstract  class Sprite {
     {
         gc.drawImage(image,posX,posY,imageWidth,imageHeight);
     }
-    public void moveRight(){
-        posX = posX + speed;
 
-        if(posX>=GameConfig.getGame_width()-imageWidth)
-            posX =GameConfig.getGame_width()-imageWidth;
-
-    }
 
 }

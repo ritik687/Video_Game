@@ -1,15 +1,18 @@
-package com.example.video_game;
+package com.example.video_game.sprites;
 
+import com.example.video_game.GameConfig;
+import com.example.video_game.Main;
+import com.example.video_game.sprites.Sprite;
 import javafx.scene.image.Image;
 
-public class Ship extends Sprite{
+public class Ship extends Sprite {
     /**
      * This is the constructor for the Sprite class
      * @param posX        - the left most position of the Sprite
      * @param posY        - the top position of the Sprite
      */
     public Ship(  int posX, int posY ) {
-        super( posX, posY,GameConfig.getShip_width(),GameConfig.getShip_height(),GameConfig.getShip_speed());
+        super( posX, posY, GameConfig.getShip_width(),GameConfig.getShip_height(),GameConfig.getShip_speed());
 
         // the problem is that the super class needs the image to be set
         image = new Image(Main.class.getResource("images/ship.png").toExternalForm());
@@ -59,7 +62,6 @@ public class Ship extends Sprite{
         posX+=speed;
         if(posX > furthestRight)
             posX = furthestRight;
-
     }
 
 }

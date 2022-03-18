@@ -1,6 +1,8 @@
 package com.example.video_game;
 
 
+import com.example.video_game.sprites.Missile;
+import com.example.video_game.sprites.Ship;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -80,6 +82,7 @@ public class GameBoardController {
 
         //create the Ship sprite
         Ship ship = new Ship(100,100 );
+        Missile missile =new Missile(100,100);
 
         AnimationTimer timer =new AnimationTimer() {
             // when the timer trigger, it will call the handle method each time...
@@ -87,7 +90,7 @@ public class GameBoardController {
             public void handle(long l){
                 gc.drawImage(background,0,0,GameConfig.getGame_width(),GameConfig.getGame_height());
 
-
+                missile.draw(gc);
                 updateShipLocation(ship);
                 ship.draw(gc);
 
@@ -113,13 +116,13 @@ public class GameBoardController {
 
         if(activeKeys.contains(KeyCode.DOWN))
             ship.moveDown();
-
         if(activeKeys.contains(KeyCode.UP) || activeKeys.contains("W"))
             ship.moveUp();
         if(activeKeys.contains(KeyCode.RIGHT))
             ship.moveRight();
         if(activeKeys.contains(KeyCode.LEFT))
             ship.moveLeft();
+
 
 
     }
