@@ -3,9 +3,14 @@ package com.example.video_game.sprites;
 import com.example.video_game.GameConfig;
 import com.example.video_game.Main;
 import com.example.video_game.sprites.Sprite;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+import java.util.ArrayList;
+
 public class Ship extends Sprite {
+    // container to hold the missiles
+     private ArrayList<Missile> activeMissiles;
     /**
      * This is the constructor for the Sprite class
      * @param posX        - the left most position of the Sprite
@@ -17,6 +22,7 @@ public class Ship extends Sprite {
         // the problem is that the super class needs the image to be set
         image = new Image(Main.class.getResource("images/ship.png").toExternalForm());
         // we have got two errors to deal with, the first is we need to change the superclass so that its not expecting an image to be passed in the constructor. And then we need to alter that image attribute so that we can access it from our subclass. Lets handle two items now.
+        activeMissiles = new ArrayList<>();
     }
 
     /**
@@ -64,4 +70,27 @@ public class Ship extends Sprite {
             posX = furthestRight;
     }
 
+    /**
+     * This method will shoot a missile from the middle of the ship
+     */
+        public void shootMissile()
+        {
+            // our ship will keep track of these missiles
+            // when we draw the ship, then we draw all the missiles...
+            Missile newMissile = new Missile(posX+imageWidth, posY+imageHeight/2-GameConfig.getMissile_height()/2);
+            activeMissiles.add(newMissile);
+        }
+
+    /**
+     * This method will draw the ship and then loop over all the active missiles to draw them
+     * @param gc
+     */
+    public void draw(GraphicsContext gc) {
+        super.draw(gc);
+        for (Missile missile : activeMissiles)
+        {
+            missile.draw(gc);
+        }
+
+    }
 }

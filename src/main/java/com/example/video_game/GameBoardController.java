@@ -90,7 +90,7 @@ public class GameBoardController {
             public void handle(long l){
                 gc.drawImage(background,0,0,GameConfig.getGame_width(),GameConfig.getGame_height());
 
-                missile.draw(gc);
+                //missile.draw(gc);
                 updateShipLocation(ship);
                 ship.draw(gc);
 
@@ -122,7 +122,8 @@ public class GameBoardController {
             ship.moveRight();
         if(activeKeys.contains(KeyCode.LEFT))
             ship.moveLeft();
-
+        if(activeKeys.contains(KeyCode.SPACE))
+            ship.shootMissile();
 
 
     }
