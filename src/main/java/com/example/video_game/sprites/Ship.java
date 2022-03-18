@@ -12,11 +12,14 @@ public class Ship extends Sprite {
     //final is no longer something that can change, often refer to those as constants. or its that something that cannot be edited or change.
 
     // these basically written in upper case and it recognise as that dont change.
-    private final int REFRESH_RATE =5;// refresh rate is just how many cycles go by before we allow another missile to be sent
+    private final int REFRESH_RATE =8;// refresh rate is just how many cycles go by before we allow another missile to be sent
     private int currentMissilePause; // this variable will keep track of how many clock cycles have happened and when it set to zero, we will set it back to 20..So basically it allows to put spacing between the shooting missiles.
 
     // container to hold the missiles
      private ArrayList<Missile> activeMissiles;
+
+
+
     /**
      * This is the constructor for the Sprite class
      * @param posX        - the left most position of the Sprite
@@ -30,6 +33,10 @@ public class Ship extends Sprite {
         // we have got two errors to deal with, the first is we need to change the superclass so that its not expecting an image to be passed in the constructor. And then we need to alter that image attribute so that we can access it from our subclass. Lets handle two items now.
         activeMissiles = new ArrayList<>();
         currentMissilePause = REFRESH_RATE;
+    }
+
+    public ArrayList<Missile> getActiveMissiles() {
+        return activeMissiles;
     }
 
 

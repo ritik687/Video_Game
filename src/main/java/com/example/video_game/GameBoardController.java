@@ -121,11 +121,18 @@ public class GameBoardController {
                 for(Alien alien : aliens)
                 {
                     alien.draw(gc);
+
+                    // if missile collides with the ship then this will happen
+                    for(Missile missile : ship.getActiveMissiles())
+                    {
+                        if(missile.collidesWith(alien))
+                        {
+                            //add an explosion
+                            missile.setAlive(false); // using the fuction of the parent class
+                            alien.setAlive(false);
+                        }
+                    }
                 }
-
-
-
-
             }
         };
 

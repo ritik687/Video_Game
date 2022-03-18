@@ -100,7 +100,21 @@ public abstract class Sprite {
 
     public void draw(GraphicsContext gc)
     {
-        gc.drawImage(image,posX,posY,imageWidth,imageHeight);
+
+//        gc.drawImage(image,posX,posY,imageWidth,imageHeight);
+
+        // if missile hit the aliens, it will not draw the aliens any more....
+        if(alive)
+            gc.drawImage(image,posX,posY,imageWidth,imageHeight);
+    }
+
+    //aliens, missiles and ship are all sprites, they will all use this method, so they will inherit it automatically, so we dont have to place this to three or four different places
+    public boolean collidesWith(Sprite sprite)
+    {
+        return ((posX + imageWidth/2 > sprite.posX) &&
+                (posX < sprite.posX + sprite.imageWidth/2 )  &&
+                (posY + imageHeight/2 > sprite.posY) &&
+                (posY < sprite.posY + sprite.imageHeight/2));
     }
 
 
