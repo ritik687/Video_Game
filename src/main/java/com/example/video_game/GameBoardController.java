@@ -20,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 
 
 public class GameBoardController {
@@ -133,6 +134,9 @@ public class GameBoardController {
                         }
                     }
                 }
+
+                // creating a method that can go throught the list, and will remove the aliens that are no longer alive
+                removeDeceasedAliens(aliens);
             }
         };
 
@@ -143,6 +147,24 @@ public class GameBoardController {
         anchorPane.getChildren().add(canvas);
 
 
+    }
+
+    // loop over the aliens if the alien is not alive, remove it from the list...
+    private void removeDeceasedAliens(ArrayList<Alien> aliens) {
+        // this will create a concurrency exception, we need to use an iterator instead.... the problem is the way the for loop works with the arraylist is that we will get a concurrency error because we are modifying the list that is already iterating over top of and this loop kind of breaks it.
+  /*      for(Alien alien : aliens)
+        {
+            if(!alien.isAlive())
+                aliens.remove(alien);
+        } this code will give the concurrency error*/
+
+        // in order to handle this concurrency exception, iterator goes over the collection and then you can make modifications to it but the iterator is doing it, you are not modifying the collection.. You can guess that its running and then doing some save operations after the fact.
+        for(Iterator<Alien> itr = aliens.iterator();itr.hasNext();)
+        {
+            Alien alien = itr.next();
+            if(!alien.isAlive())
+                itr.remove();
+        }
     }
 
     /**
