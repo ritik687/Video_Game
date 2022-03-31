@@ -4,6 +4,7 @@ package com.example.video_game;
 import com.example.video_game.sprites.Alien;
 import com.example.video_game.sprites.Missile;
 import com.example.video_game.sprites.Ship;
+import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -32,6 +33,8 @@ public class GameBoardController {
     private Button startButton;
 
     private HashSet<KeyCode> activeKeys;
+
+    private AnimationTimer timer; // this variable will be the scope of the whole class,..
 
     @FXML
     private void startGame(ActionEvent event)
@@ -102,8 +105,10 @@ public class GameBoardController {
 
 
 
-
-        AnimationTimer timer =new AnimationTimer() {
+        // defining the timer in the global level
+        /*AnimationTimer timer =new AnimationTimer()*/
+        timer = new AnimationTimer()
+        {
             // when the timer trigger, it will call the handle method each time...
             @Override
             public void handle(long l){
@@ -137,6 +142,13 @@ public class GameBoardController {
 
                 // creating a method that can go throught the list, and will remove the aliens that are no longer alive
                 removeDeceasedAliens(aliens);
+
+                // check to see if the game should end OR if no aliens left
+                if(aliens.size()==0)
+                {
+                    timer.stop(); // this will show if we dont initialize the timer in the global level.....
+                    // and when you run the program upto this commit it will not give so much good experience because it will stop all the animations...
+                }
             }
         };
 
