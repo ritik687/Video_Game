@@ -17,6 +17,9 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -146,6 +149,8 @@ public class GameBoardController {
                 // check to see if the game should end OR if no aliens left
                 if(aliens.size()==0)
                 {
+                    //this finalMessage method will display text when we kill all the aliens
+                    finalMessage(gc,"Congratulations - you saved the universe!!", Color.WHITE);
                     timer.stop(); // this will show if we dont initialize the timer in the global level.....
                     // and when you run the program upto this commit it will not give so much good experience because it will stop all the animations...
                 }
@@ -159,6 +164,18 @@ public class GameBoardController {
         anchorPane.getChildren().add(canvas);
 
 
+    }
+
+    /**
+     * this method will display the final message to the person playing the game
+     */
+    private void finalMessage(GraphicsContext gc, String message, Color color)
+    {
+        // using graphic context, we can write text, we can draw images, we can draw shapes
+        Font font = Font.font("Arial", FontWeight.NORMAL,32);
+        gc.setFont(font);
+        gc.setFill(color);
+        gc.fillText(message,250,350); // this will set the text according to the x and y coordinate.
     }
 
     // loop over the aliens if the alien is not alive, remove it from the list...
