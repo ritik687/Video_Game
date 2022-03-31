@@ -104,6 +104,7 @@ public abstract class Sprite {
 //        gc.drawImage(image,posX,posY,imageWidth,imageHeight);
 
         // if missile hit the aliens, it will not draw the aliens any more....
+        // to checked if the object is alive and then it calls graphic context draw image and it hits in five arguements.Now when i call it from the ship class or alien class, i will only pass in one arguement, but still getting the benefits of all the other arguements like image, posX, posY,imageWidth, imageHeight. Then why we use so many draw methods in all the sub-classes. This is because all the sub-classes have other function too while drawing the image like movingLeft for the alien and for the ship to move right.
         if(alive)
             gc.drawImage(image,posX,posY,imageWidth,imageHeight);
     }

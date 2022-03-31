@@ -109,6 +109,8 @@ public class Ship extends Sprite {
     public void draw(GraphicsContext gc) {
 
         currentMissilePause--;
+
+        //calling the draw method that is in the Sprite,  but most importantly I only passed  one arguements. draw() is inherited from the Sprite. draw() is an example of Polymorphism.
         super.draw(gc);
         for (Missile missile : activeMissiles)
         {

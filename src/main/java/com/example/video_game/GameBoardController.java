@@ -141,6 +141,15 @@ public class GameBoardController {
                             alien.setAlive(false);
                         }
                     }
+
+                    if(alien.collidesWith(ship))
+                    {
+                        //draw an explosion
+                        ship.setAlive(false);
+                        alien.setAlive(false);
+                        finalMessage(gc,"The aliens got you!!",Color.RED);
+                        timer.stop();
+                    }
                 }
 
                 // creating a method that can go throught the list, and will remove the aliens that are no longer alive
